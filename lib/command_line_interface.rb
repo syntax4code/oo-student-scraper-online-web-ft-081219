@@ -13,19 +13,21 @@ class CommandLineInterface
     display_students
   end
 
+# this method reaches into the Scraper class from scraper.rb  and grabs students info from the students array,
+# then the info is placed in a variable students_array.
   def make_students
-    students_array = Scraper.scrape_index_page(BASE_URL+ 'index.html')
-    Student.create_from_collection(students_array)
+    students_array = Scraper.scrape_index_page(BASE_URL+ 'index.html')#uses the results from scraper.rb method def self.scrape_index_page
+    Student.create_from_collection(students_array)#now the info collected is placed in the Student class.
   end
 
-  def add_attributes_to_students
+  def add_attributes_to_students #
     Student.all.each do |student|
-      attributes = Scraper.scrape_profile_page(BASE_URL + student.profile_url)
+      attributes = Scraper.scrape_profile_page(BASE_URL + student.profile_url) #gets from scraper method results from def self.scrape_profile_page
       student.add_student_attributes(attributes)
     end
   end
 
-  def display_students
+  def display_students #this method difines how the CLI output will display
     Student.all.each do |student|
       puts "#{student.name.upcase}".colorize(:blue)
       puts "  location:".colorize(:light_blue) + " #{student.location}"

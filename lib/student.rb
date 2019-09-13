@@ -13,7 +13,8 @@ class Student
     students_array.each do |student_hash|
       self.new(student_hash)
   end
-
+#add_student_attributes method iterates over the given hash and uses meta-programming to dynamically
+#assign the student attributes and values per the key/value pairs of the hash.
   def add_student_attributes(attributes_hash)
     attributes_hash.each do |k, v|
           self.send(("#{k}="), v)
@@ -21,7 +22,7 @@ class Student
   end
     self
   end
-  def self.all
+  def self.all #class method returns the contents of the @@all array
     @@all
 
   end
